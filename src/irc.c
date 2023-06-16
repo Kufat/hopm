@@ -126,6 +126,10 @@ m_perform(char *parv[], unsigned int parc, const char *msg, const char *source_p
   if (!EmptyString(IRCItem.nickserv))
     irc_send("%s", IRCItem.nickserv);
 
+  /* Set mode +B before oper to avoid scrollback */
+  if (!EmptyString(IRCItem.mode))
+    irc_send("MODE %s +B", IRCItem.nick);
+
   /* Oper */
   if (!EmptyString(IRCItem.oper))
     irc_send("OPER %s", IRCItem.oper);

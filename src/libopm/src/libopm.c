@@ -49,6 +49,7 @@
 #include "list.h"
 #include "proxy.h"
 
+extern FILE *scanlogfile;
 
 static OPM_PROTOCOL_CONFIG_T *libopm_protocol_config_create(void);
 static void libopm_protocol_config_free(OPM_PROTOCOL_CONFIG_T *);
@@ -1226,6 +1227,9 @@ libopm_do_read(OPM_T *scanner, OPM_SCAN_T *scan, OPM_CONNECTION_T *conn)
 {
   OPM_LIST_T *list;
   OPM_NODE_T *node;
+
+  if(scanlogfile)
+       fprintf(scanlogfile, "DEBUG: Read string [%s]\n", conn->readbuf);
 
   /* Check readbuf against target strings */
   list = (OPM_LIST_T *)libopm_config(scanner->config, OPM_CONFIG_TARGET_STRING);
